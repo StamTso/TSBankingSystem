@@ -1,2 +1,2 @@
 # TSBankingSystem
-My personal repository for the AFDEMP C# console app project 
+Cloud repository for the AFDEMP C# Bank System console app project 
