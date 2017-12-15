@@ -4,59 +4,85 @@ using System.Text;
 
 namespace TSBankSystem
 {
-    public class AppMenu
+    public static class AppMenu
     {
-        public void AdminMenu()
+        public static void PrintMenu()
         {
-            Console.Clear();
-            Console.WriteLine("\n-----------\nMain Menu\n------------");
-            Console.WriteLine("Welcome Admin!");
-            Console.WriteLine("Please choose one of the actions below:");
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("-View Cooperative's internal bank account: Press I\n\n-View bank members internal accounts: Press B\n\n-Withdraw money from a member's internal account: Press W\n\n" +
-                "-Print statement with the transctions of the day: Press P\n\n-Exit the application: press Q");
+            
+                if (LoginScreen.Username == "admin")
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n-----------\nMain Menu\n------------");
+                    Console.WriteLine($"Welcome {LoginScreen.Username}!");
+                    Console.WriteLine("Please choose one of the actions below:");
+                    Console.WriteLine("-----------------------");
+                    Console.WriteLine("-Press A: View  your Cooperative Account Balance\n\n-Press B: View all internal Member Accounts\n\n-Press D: Deposit to Member Account\n\n-Press W: Withdraw from Member Account\n\n" +
+                        "-Press P: Print statement with the transctions of the day\n\n-Press Q: Log out");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("--------------------------------------------------------------------------------\n\t\t\t\tTSB App Main Menu\n");
+                    Console.WriteLine($"--------------------------------------------------------------------------------\n\t\t\t\tWelcome {LoginScreen.Username}!\n--------------------------------------------------------------------------------\n");
+                    Console.WriteLine("Please choose one of the actions below:\n");
+                    Console.WriteLine("-Press A: View your Account Balance\n\n-Press D: Deposit to Member/Cooperative Account\n\n" +
+                        "-Press P: Print statement with the transctions of the day\n\n-Press Q: Log out");
+                }           
         }
 
-        public void UserMenu()
+        public static void ExecuteSelection()
         {
-            Console.Clear();
-            Console.WriteLine("\n-----------\nMain Menu\n------------");
-            Console.WriteLine("Welcome User!");
-            Console.WriteLine("Please choose one of the actions below:");
-            Console.WriteLine("-----------------------");
-            Console.WriteLine("-View your bank account: Press A\n\n-Deposit to Cooperative's Account: Press D\n\n-Deposit to a member's account: Press M\n\n" +
-                "-Print statement with the transctions of the day: Press P\n\n-Exit the application: press Q");            
-        }
-
-        public string Choice()
-        {            
-            string userchoice = Console.ReadLine();
-            Console.Clear();
-
-            switch (userchoice)
+            bool exit = false;
+            while (!exit)
             {
-                case "A":
-                    return "A";
-                case "B":
-                    return "B";
-                case "D":
-                    return "D";
-                case "I":
-                    return "I";
-                case "M":
-                    return "M";
-                case "N":
-                    return "N";
-                case "W":
-                    return "W";
-                case "P":
-                    return "P";
-                case "Q":
-                        Environment.Exit(0);
-                    return "Q";
-                default:
-                    return null;
+                PrintMenu();
+                string selection = Console.ReadLine();
+                selection = selection.ToUpper();
+                Console.Clear();
+
+                switch (selection)
+                {
+                    case "A":
+                        InternalBankAccount.DisplayBalance();
+                        break;
+                    case "B":
+                        if (LoginScreen.Username == "admin")
+                        {
+                            InternalBankAccount.DisplayAllUserAccounts();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Low access level. Not authorized for this selection");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case "D":
+                        InternalBankAccount.Deposit();
+                        break;
+                    case "W":
+                        if (LoginScreen.Username == "admin")
+                        {
+                            InternalBankAccount.Withdraw();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Low access level. Not authorized for this selection");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case "P":
+                        break;
+                    case "Q":
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine($"{selection} is not a valid choice", selection);
+                        Console.ReadKey();
+                        break;
+                }
             }
+                
+            
         }
     }
 }

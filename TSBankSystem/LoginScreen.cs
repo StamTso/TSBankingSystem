@@ -1,30 +1,32 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TSBankSystem
 {
-    public class LoginScreen
+    public static class LoginScreen
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-
+        public static string Username { get; set; }
+        public static string Password { get; set;}
         
-        public LoginScreen()
+                
+        public static void PrintLoginScreen()
         {
-            Console.WriteLine("-------------------------------\nWelcome to TS e - Banking system");
-            Console.WriteLine("-------------------------------\nUser Login\n------------------------------\n");
+            Console.WriteLine("--------------------------------------------------------------------------------\n\t\t\tWelcome to TS Bank e-banking application\n");
+            Console.WriteLine("--------------------------------------------------------------------------------\nUser Login\n--------------------------------------------------------------------------------\n");
             Console.Write("Enter Username: ");
             Username = Console.ReadLine();
             Console.Write("Enter Password: ");
             ConsoleKeyInfo key;
-            string Password = "";
+            Password = "";
             do
             {
                 key = Console.ReadKey(true);
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter) 
                 {
-                    this.Password += key.KeyChar;
+                    Password += key.KeyChar;
                     Console.Write("*");
                 }
                 else
@@ -39,16 +41,32 @@ namespace TSBankSystem
             while (key.Key != ConsoleKey.Enter);
         }
 
-        public bool CheckCredentials(string username, string password)
+        
+
+        public static bool CheckCredentials()
         {
-            if ((username == "admin" && password == "admin") || (username == "user1" && password == "password1") || (username =="user2" && password == "password2"))
+            using (DBAccess dbx = new DBAccess())
             {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+                var admin = dbx.Users.Find(1);
+                string adminName = dbx.Entry(admin).Property(i => i.Username).CurrentValue;
+                string adminPass = dbx.Entry(admin).Property(i => i.Password).CurrentValue;
+                var user1 = dbx.Users.Find(2);
+                string user1Name = dbx.Entry(user1).Property(i => i.Username).CurrentValue;
+                string user1Pass = dbx.Entry(user1).Property(i => i.Password).CurrentValue;
+                var user2 = dbx.Users.Find(3);
+                string user2Name = dbx.Entry(user2).Property(i => i.Username).CurrentValue;
+                string user2Pass = dbx.Entry(user2).Property(i => i.Password).CurrentValue;
+                
+
+                if ((Username == adminName && Password == adminPass) || (Username == user1Name && Password == user1Pass) || (Username == user2Name && Password == user2Pass))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }           
         }
     }
 }
