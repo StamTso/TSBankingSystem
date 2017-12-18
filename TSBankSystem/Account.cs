@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace TSBankSystem
 {
+    //Class modeling the table "Accounts" in the afdemp_csharp_1 database
     public class Account
     {
         [Key]

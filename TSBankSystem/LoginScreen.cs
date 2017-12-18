@@ -1,30 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 
 namespace TSBankSystem
 {
+    //Class which handles the initial login screen
+    //and the verification of user's credentials against 
+    //sql database
     public static class LoginScreen
     {
         public static string Username { get; set; }
-        public static string Password { get; set;}
-        
-                
+        private static string Password { get; set; }
+
+        //Method for printing the login screen        
         public static void PrintLoginScreen()
         {
             Console.WriteLine("--------------------------------------------------------------------------------\n\t\t\tWelcome to TS Bank e-banking application\n");
-            Console.WriteLine("--------------------------------------------------------------------------------\nUser Login\n--------------------------------------------------------------------------------\n");
+            Console.WriteLine("--------------------------------------------------------------------------------\nUser Login\n---------------");
+            //Reading the user's input for username and password
             Console.Write("Enter Username: ");
             Username = Console.ReadLine();
             Console.Write("Enter Password: ");
-            ConsoleKeyInfo key;
+            ConsoleKeyInfo key;//Password is read as char and * are displayed instead of the actual keys pressed
             Password = "";
             do
             {
                 key = Console.ReadKey(true);
-                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter) 
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     Password += key.KeyChar;
                     Console.Write("*");
@@ -41,32 +42,29 @@ namespace TSBankSystem
             while (key.Key != ConsoleKey.Enter);
         }
 
-        
 
+        //Method for checking the user input of username and password
+        //against the database
         public static bool CheckCredentials()
         {
-            using (DBAccess dbx = new DBAccess())
+            using (DBAccess db = new DBAccess())//Open connection with database
             {
-                var admin = dbx.Users.Find(1);
-                string adminName = dbx.Entry(admin).Property(i => i.Username).CurrentValue;
-                string adminPass = dbx.Entry(admin).Property(i => i.Password).CurrentValue;
-                var user1 = dbx.Users.Find(2);
-                string user1Name = dbx.Entry(user1).Property(i => i.Username).CurrentValue;
-                string user1Pass = dbx.Entry(user1).Property(i => i.Password).CurrentValue;
-                var user2 = dbx.Users.Find(3);
-                string user2Name = dbx.Entry(user2).Property(i => i.Username).CurrentValue;
-                string user2Pass = dbx.Entry(user2).Property(i => i.Password).CurrentValue;
-                
 
-                if ((Username == adminName && Password == adminPass) || (Username == user1Name && Password == user1Pass) || (Username == user2Name && Password == user2Pass))
-                {
-                    return true;
-                }
-                else
+                var hasUser = (from a in db.Users
+                               where a.Username == Username && a.Password == Password
+                               select (a.Username)).FirstOrDefault();
+
+                //returning true only  when username and repsective password match with 
+                //input from login screen
+                if (hasUser == null)
                 {
                     return false;
                 }
-            }           
+                else
+                {
+                    return true;
+                }
+            }
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿-On 17-12-2017 21.27.14.182, 100,00€ were withdrawed from USER2
+-On 17-12-2017 21.52.07.08, 100,00€ were transfered to USER1
+-On 17-12-2017 22.00.47.485, 100,00€ were withdrawed from USER1
+-On 17-12-2017 22.01.07.098, 100,00€ were transfered to USER1
+-On 17-12-2017 22.01.18.099, 1,00€ were withdrawed from USER2
+-On 17-12-2017 22.01.27.116, 1,00€ were withdrawed from USER2
+-On 17-12-2017 22.01.49.207, 15,00€ were withdrawed from USER2
+-On 17-12-2017 22.02.18.053, 1,50€ were transfered to USER2
+-On 17-12-2017 22.02.40.098, 2,50€ were transfered to USER2
+-On 17-12-2017 22.02.49.171, 13,00€ were transfered to USER2
+-On 17-12-2017 22.13.58.57, 100,00€ were transfered to ADMIN
+-On 17-12-2017 22.14.10.101, 100,00€ were transfered to USER2
+-On 17-12-2017 22.14.53.935, 300,00€ were transfered to USER1

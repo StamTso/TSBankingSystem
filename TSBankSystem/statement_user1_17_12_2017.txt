@@ -1,0 +1,7 @@
+	TS Bank Daily Statement File
+
+
+
+-On 17-12-2017 22.13.58.57, 100,00€ were transfered to ADMIN
+-On 17-12-2017 22.13.58.57, 100,00€ were transfered to ADMIN
+-On 17-12-2017 22.14.10.101, 100,00€ were transfered to USER2

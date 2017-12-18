@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TSBankSystem
 {
+    //Class modeling the table "Users" in the afdemp_csharp_1 database
     public class User
     {
         [Key]
